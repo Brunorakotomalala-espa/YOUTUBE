@@ -11,6 +11,9 @@ app = Flask(__name__)
 
 # Configurer l'API YouTube Data V3
 YOUTUBE_API_KEY = os.getenv('YOUTUBE_API_KEY')
+if not YOUTUBE_API_KEY:
+    raise ValueError("YOUTUBE_API_KEY not found in environment variables")
+
 youtube = build('youtube', 'v3', developerKey=YOUTUBE_API_KEY)
 
 @app.route('/search', methods=['GET'])
@@ -46,3 +49,4 @@ def search():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
+    
